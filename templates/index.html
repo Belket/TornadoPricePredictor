@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{{ static_url('css/bootstrap.css') }}" type="text/css"/>
+        <link rel="stylesheet" href="{{ static_url('CSS/styles.css') }}" type="text/css"/>
+        <script type="text/javascript" src="{{ static_url('JS/jquery-2.1.4.min.js') }}"></script>
+        <script type="text/javascript" src="{{ static_url('JS/ProjectScripts.js') }}"></script>
+    </head>
+    <body class="page_style">
+        <div class="container">
+            <div class="row shadow_upside">
+                <div class="col-md-12">
+                    <h5 class="site_name"> Price Predictor </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <H5 class="signature"> Вводим параметры ----> </H5>
+                </div>
+                <div class="col-md-6">
+                    <form class="parameters_form" action="/" method="post">
+                        {% for pair in data %}
+                            <div class="form-group">
+                                <input type="text" id="{{escape(pair['feature'])}}" placeholder="{{escape(pair['placeholder'])}}" >
+                                <label class="placeholder_text" for="{{escape(pair['feature'])}}"> {{pair['placeholder']}} </label>
+                            </div>
+                        {% end %}
+
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <button class="signature" onclick="AJAX_get_price({{data}})"> Получить результат! </button>
+                    <div id="price_form"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
