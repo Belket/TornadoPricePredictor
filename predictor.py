@@ -1,13 +1,15 @@
 import joblib
 import numpy as np
 import pandas as pd
-# import xgboost as xgb
+import xgboost as xgb
+import os
 
 
 class XGBoostPredictor:
 
     def __init__(self):
-        # self._model = joblib.load('xgboost.pkl')
+        self.model_file = os.path.join(os.path.dirname(__file__), 'xgboost.pkl')
+        self._model = joblib.load(self.model_file)
         self._features = ['full_sq', 'life_sq', 'floor', 'max_floor', 'build_year', 'num_room', 'kitch_sq',
                           'metro_min_walk', 'public_transport_station_min_walk', 'water_km', 'kremlin_km']
         self._placeholders = ["Общая площадь", "Жилая площадь", "Этаж", "Этажей всего", "Год постройки",
@@ -34,4 +36,4 @@ class XGBoostPredictor:
 
     def predict_price(self, answers):
         xgb_matrix = self._create_xgboost_matrix(answers)
-        return self._make_prediction(xgb_matrix)[0]
+        return str(self._make_prediction(xgb_matrix)[0])

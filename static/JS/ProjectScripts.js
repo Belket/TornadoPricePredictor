@@ -24,8 +24,16 @@ function AJAX_get_price(data) {
             console.log("При выполнении запроса произошла ошибка :(");
         },
         success: function (response) {
-            console.log(response["price"]);
-            document.getElementById("price_form").innerText = response["price"];
+            let data = "";
+            if (response["error"] === 1){
+                data = response["error_text"]
+            }
+            else {
+                data = "Стоимость квартиры указанного типа составит примерно: " + response["price"] + " рублей"
+            }
+
+            document.getElementById("price_form").style.visibility = "visible";
+            document.getElementById("price_form").innerText = data;
         }
     })
 }
